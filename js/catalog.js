@@ -12,6 +12,8 @@
       '../pages/07.html': { id: '07', title: '许文兰档案' },
       '../pages/08.html': { id: '08', title: '访客登记' },
       '../pages/09.html': { id: '09', title: '监控缺失' },
+      '../pages/monitor-log.html': { id: '09+', title: '监控关联检索' },
+      '../pages/0313-index.html': { id: '04+', title: '0313关联检索' },
       '../pages/10.html': { id: '10', title: '管理员账号说明' },
       '../pages/11.html': { id: '11', title: '2019关停公告' },
       '../pages/12.html': { id: '12', title: '守望者制度' },

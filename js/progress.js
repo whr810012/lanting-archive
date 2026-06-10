@@ -45,6 +45,14 @@
   function markCurrentPage() {
     var page = document.body.getAttribute('data-page');
     if (!page || page === '—') return;
+    if (page === '09b') {
+      unlock('../pages/monitor-log.html');
+      return;
+    }
+    if (page === '04b') {
+      unlock('../pages/0313-index.html');
+      return;
+    }
     unlock('../pages/' + page + '.html');
   }
 
