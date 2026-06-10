@@ -29,7 +29,7 @@
     header.innerHTML =
       '<div class="header-top"><a class="brand" href="' + prefix + 'index.html">澜庭照护档案系统</a><span class="role-tag">' + role + '</span></div>' +
       '<form id="search-form" class="search-bar"><input id="search-input" type="text" placeholder="输入关键词检索档案…" autocomplete="off" /><button type="submit">检索</button></form>' +
-      '<nav class="header-nav"><a href="' + prefix + 'archive/hub.html">首页</a><a href="' + prefix + 'archive/timetower.html">时光塔</a><a href="' + prefix + 'archive/login.html">登录</a><a href="' + prefix + 'archive/contact.html">联系</a></nav>';
+      '<nav class="header-nav"><a href="' + prefix + 'archive/hub.html">首页</a><a href="' + prefix + 'archive/shelf.html">已解锁</a><a href="' + prefix + 'archive/timetower.html">时光塔</a><a href="' + prefix + 'archive/login.html">登录</a><a href="' + prefix + 'archive/contact.html">联系</a></nav>';
 
     var footer = document.createElement('footer');
     footer.className = 'site-footer';

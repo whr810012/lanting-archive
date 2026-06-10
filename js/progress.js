@@ -15,12 +15,46 @@
     if (list.indexOf(path) === -1) { list.push(path); save(list); }
   }
 
+  function isUnlocked(path) {
+    return load().indexOf(path) !== -1;
+  }
+
+  function getEntries() {
+    var list = load();
+    var catalog = window.LantingCatalog && window.LantingCatalog.pages;
+    if (!catalog) return list.map(function (p) { return { path: p, title: p, id: '?' }; });
+    return list
+      .filter(function (p) { return catalog[p]; })
+      .map(function (p) {
+        var m = catalog[p];
+        return { path: p, title: m.title, id: m.id };
+      })
+      .sort(function (a, b) {
+        var aid = a.id.replace('EX', '99');
+        var bid = b.id.replace('EX', '99');
+        return aid.localeCompare(bid, undefined, { numeric: true });
+      });
+  }
+
+  function getLoginHints() {
+    var hints = window.LantingCatalog && window.LantingCatalog.loginHints;
+    if (!hints) return [];
+    return hints.filter(function (h) { return isUnlocked(h.need); });
+  }
+
   function markCurrentPage() {
     var page = document.body.getAttribute('data-page');
-    if (!page) return;
+    if (!page || page === '—') return;
     unlock('../pages/' + page + '.html');
   }
 
-  window.LantingProgress = { unlock: unlock, load: load };
+  window.LantingProgress = {
+    unlock: unlock,
+    load: load,
+    isUnlocked: isUnlocked,
+    getEntries: getEntries,
+    getLoginHints: getLoginHints
+  };
+
   document.addEventListener('DOMContentLoaded', markCurrentPage);
 })();

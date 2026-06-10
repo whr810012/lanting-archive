@@ -9,21 +9,38 @@
 <body data-page="—" data-total="45">
   <article class="doc-content panel">
     <h1>内部账号登录</h1>
-    <p>初始密码与账号名相同（首次登录后请修改）。</p>
+    <p>账号信息分散在档案中，需调查解锁后方可获知。</p>
     <form id="login-form">
       <p><label>账号<br><input id="login-user" type="text" style="width:100%;padding:8px;margin-top:4px;"></label></p>
       <p style="margin-top:12px;"><label>密码<br><input id="login-pass" type="password" style="width:100%;padding:8px;margin-top:4px;"></label></p>
       <p style="margin-top:16px;"><button type="submit" style="padding:10px 20px;background:#2d4a3e;color:#fff;border:none;cursor:pointer;">登录</button></p>
     </form>
     <p id="login-msg" class="login-msg"></p>
-    <div class="note" style="margin-top:20px;font-size:13px;">
-      <p>照护员：shenyu / shenyu</p>
-      <p>护士长：gulinchuan / GLC2019</p>
-      <p>外包顾问：huiyi / HY-visitor</p>
+    <div id="login-hints" class="note" style="margin-top:20px;font-size:13px;">
+      <p><strong>已发现的账号线索：</strong></p>
+      <p id="hints-empty">（暂无。继续检索档案。）</p>
+      <ul id="hints-list" style="margin-top:8px;padding-left:20px;"></ul>
     </div>
     <p style="margin-top:12px;"><button id="logout-btn" type="button" style="font-size:12px;">退出登录</button></p>
   </article>
+  <script src="../js/catalog.js"></script>
+  <script src="../js/progress.js"></script>
   <script src="../js/auth.js"></script>
   <script src="../js/layout.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var hints = window.LantingProgress.getLoginHints();
+      var empty = document.getElementById('hints-empty');
+      var list = document.getElementById('hints-list');
+      if (hints.length) {
+        empty.style.display = 'none';
+        hints.forEach(function (h) {
+          var li = document.createElement('li');
+          li.textContent = h.text;
+          list.appendChild(li);
+        });
+      }
+    });
+  </script>
 </body>
 </html>

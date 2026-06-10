@@ -37,9 +37,6 @@
     'beimen1998': '../pages/34.html',
     '夜班真相': '../pages/40.html',
     '我该怎么办': '../pages/43.html',
-    '公开': '../pages/44.html',
-    '烧掉': '../pages/45.html',
-    '守望者夜班': '../pages/ex05.html',
     '记忆守护': '../pages/29.html',
     '方案b': '../pages/32.html',
     '笔迹不符': '../pages/36.html',
@@ -56,7 +53,9 @@
     '20230412': '../external/huiyi-blog/post1.html',
     '归档': '../external/huiyi-blog/post2.html',
     '31415926': '../external/huiyi-blog/post3.html',
-    '贴吧': '../external/tieba-mirror.html'
+    '贴吧': '../external/tieba-mirror.html',
+    'lanting': '../pages/ex01.html',
+    '源码': '../pages/ex01.html'
   };
 
   var ROLE_REQUIRED = {
@@ -130,7 +129,7 @@
     var norm = normalize(keyword);
     if (!norm) return false;
 
-    if (fromChoice || document.body.getAttribute('data-page') === '43') {
+    if (fromChoice) {
       if (norm === '公开') {
         window.location.href = resolvePath('../pages/44.html');
         return true;
@@ -143,6 +142,8 @@
         window.location.href = resolvePath('../pages/ex05.html');
         return true;
       }
+      window.LantingLayout && window.LantingLayout.showToast('无效指令。请输入：公开 / 烧掉 / 守望者夜班');
+      return false;
     }
 
     var target = lookup(norm);

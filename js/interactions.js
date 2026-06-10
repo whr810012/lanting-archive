@@ -2,29 +2,41 @@
   'use strict';
 
   document.addEventListener('DOMContentLoaded', function () {
+    function bindLongPress(el, onDone, ms) {
+      var timer, pressedAt = 0;
+      function start() {
+        clear();
+        pressedAt = Date.now();
+        timer = setTimeout(onDone, ms || 5000);
+      }
+      function end() {
+        if (Date.now() - pressedAt < (ms || 5000)) clear();
+      }
+      function clear() { clearTimeout(timer); timer = null; }
+      el.addEventListener('mousedown', start);
+      el.addEventListener('mouseup', end);
+      el.addEventListener('mouseleave', clear);
+      el.addEventListener('touchstart', start, { passive: true });
+      el.addEventListener('touchend', end);
+      el.addEventListener('touchcancel', clear);
+    }
+
     var hotspot = document.getElementById('hotspot-302');
     if (hotspot) {
-      var timer, done = false;
-      function start() { clear(); timer = setTimeout(function () {
-        if (done) return; done = true;
+      var done = false;
+      bindLongPress(hotspot, function () {
+        if (done) return;
+        done = true;
         window.LantingLayout && window.LantingLayout.showToast('隐藏档案已解锁…');
         setTimeout(function () { window.location.href = '25.html'; }, 600);
-      }, 5000); }
-      function clear() { clearTimeout(timer); }
-      hotspot.addEventListener('mousedown', start);
-      hotspot.addEventListener('touchstart', start, { passive: true });
-      hotspot.addEventListener('mouseup', clear);
-      hotspot.addEventListener('mouseleave', clear);
-      hotspot.addEventListener('touchend', clear);
+      });
     }
 
     var star = document.getElementById('footer-star');
     if (star) {
-      var t;
-      star.addEventListener('mousedown', function () {
-        t = setTimeout(function () { window.location.href = '../external/huiyi-blog/post4.html'; }, 5000);
+      bindLongPress(star, function () {
+        window.location.href = '../external/huiyi-blog/post4.html';
       });
-      ['mouseup', 'mouseleave'].forEach(function (ev) { star.addEventListener(ev, function () { clearTimeout(t); }); });
     }
 
     var choiceForm = document.getElementById('choice-form');

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>已解锁档案</title>
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/archive.css">
+</head>
+<body data-page="—" data-total="45">
+  <article class="doc-content">
+    <h1>已解锁档案</h1>
+    <p id="shelf-count" class="note">正在读取本地记录…</p>
+    <ul id="shelf-list" class="shelf-list"></ul>
+    <p style="margin-top:16px;font-size:13px;color:#666;">记录在浏览器本地，清除缓存会丢失。</p>
+    <p style="margin-top:8px;"><button type="button" id="clear-progress" style="font-size:12px;">重置进度</button></p>
+  </article>
+  <script src="../js/catalog.js"></script>
+  <script src="../js/progress.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/search.js"></script>
+  <script src="../js/layout.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var entries = window.LantingProgress.getEntries();
+      var list = document.getElementById('shelf-list');
+      var count = document.getElementById('shelf-count');
+      count.textContent = '共 ' + entries.length + ' 份档案已解锁';
+      if (!entries.length) {
+        list.innerHTML = '<li class="shelf-empty">尚无记录。从首页搜索「沈屿」开始调查。</li>';
+        return;
+      }
+      entries.forEach(function (e) {
+        var li = document.createElement('li');
+        var a = document.createElement('a');
+        a.href = new URL(e.path, window.location.href).href;
+        a.textContent = '[' + e.id + '] ' + e.title;
+        li.appendChild(a);
+        list.appendChild(li);
+      });
+      document.getElementById('clear-progress').addEventListener('click', function () {
+        if (confirm('确定清除所有解锁记录？（不影响登录状态）')) {
+          localStorage.removeItem('lanting_unlocked');
+          location.reload();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
