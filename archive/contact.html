@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>联系我们</title>
+  <link rel="stylesheet" href="../css/base.css">
+</head>
+<body data-page="—" data-total="45">
+  <article class="doc-content">
+    <h1>联系我们</h1>
+    <form id="contact-form">
+      <p><textarea id="contact-text" rows="5" style="width:100%;padding:8px;font-family:inherit;" placeholder="输入留言内容…"></textarea></p>
+      <button type="submit" style="padding:10px 20px;background:#2d4a3e;color:#fff;border:none;cursor:pointer;">提交</button>
+    </form>
+    <div id="contact-reply" class="note" style="margin-top:16px;display:none;"></div>
+  </article>
+  <script src="../js/auth.js"></script>
+  <script src="../js/search.js"></script>
+  <script src="../js/layout.js"></script>
+  <script>
+    document.getElementById('contact-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var t = document.getElementById('contact-text').value;
+      var r = document.getElementById('contact-reply');
+      r.style.display = 'block';
+      if (/沈屿|弟弟/.test(t)) {
+        r.innerHTML = '自动回复：您好，本院已暂停运营。人员问询请致电 0571-XXXX（空号）。';
+      } else if (/顾临川/.test(t)) {
+        r.innerHTML = '自动回复：顾老师是志愿者，不负责对外接待。';
+        setTimeout(function () {
+          r.innerHTML += '<p class="handwritten horror" style="margin-top:8px;">……别搜了。</p>';
+        }, 3000);
+      } else if (/慧忆/.test(t)) {
+        r.innerHTML = '自动回复：合作事宜请联系程帆。<br><a href="../external/huiyi-blog/index.html">帆影笔记（镜像）</a>';
+      } else {
+        r.textContent = '留言已收到。维护志愿者将在 72 小时内回复。（不会）';
+      }
+    });
+  </script>
+</body>
+</html>

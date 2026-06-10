@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>帆影笔记</title>
+  <link rel="stylesheet" href="../../css/base.css">
+</head>
+<body data-page="—" data-total="45">
+  <article class="doc-content">
+    <h1>帆影笔记 · 内网镜像</h1>
+    <p>程帆停更博客的备份。部分文章需密码访问。</p>
+    <p>提示：项目启动那天，江岳下了第一场雪。密码：<strong>20230412</strong></p>
+    <form onsubmit="event.preventDefault();var p=document.getElementById('pw').value;if(p==='20230412')location.href='post1.html';else alert('密码错误');">
+      <input id="pw" type="text" placeholder="输入密码" style="padding:8px;width:200px;">
+      <button type="submit">进入</button>
+    </form>
+    <p style="margin-top:16px;"><a href="post1.html">直接进入第一篇（已知密码）</a></p>
+  </article>
+  <script src="../../js/auth.js"></script>
+  <script src="../../js/search.js"></script>
+  <script src="../../js/layout.js"></script>
+</body>
+</html>
