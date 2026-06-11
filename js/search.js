@@ -137,22 +137,37 @@
     return '【访问拒绝】需要慧忆生物外包顾问权限。';
   }
 
+  function openResult(target, newTab) {
+    var url = resolvePath(target);
+    if (window.LantingProgress) window.LantingProgress.unlock(target);
+    if (newTab) {
+      var opened = window.open(url, '_blank', 'noopener,noreferrer');
+      if (!opened) {
+        window.LantingLayout && window.LantingLayout.showToast('无法打开新标签页，请允许本站弹窗后重试。');
+        return false;
+      }
+      window.LantingLayout && window.LantingLayout.showToast('检索结果已在新标签页打开，本页档案保留。');
+      var input = document.getElementById('search-input');
+      if (input) input.value = '';
+      return true;
+    }
+    window.location.href = url;
+    return true;
+  }
+
   function handleSearch(keyword, fromChoice) {
     var norm = normalize(keyword);
     if (!norm) return false;
 
     if (fromChoice) {
       if (norm === '公开') {
-        window.location.href = resolvePath('../pages/44.html');
-        return true;
+        return openResult('../pages/44.html', false);
       }
       if (norm === '烧掉') {
-        window.location.href = resolvePath('../pages/45.html');
-        return true;
+        return openResult('../pages/45.html', false);
       }
       if (norm === '守望者夜班' || norm === '守望者') {
-        window.location.href = resolvePath('../pages/ex05.html');
-        return true;
+        return openResult('../pages/ex05.html', false);
       }
       window.LantingLayout && window.LantingLayout.showToast('无效指令。请输入：公开 / 烧掉 / 守望者夜班');
       return false;
@@ -169,9 +184,7 @@
       return false;
     }
 
-    if (window.LantingProgress) window.LantingProgress.unlock(target);
-    window.location.href = resolvePath(target);
-    return true;
+    return openResult(target, true);
   }
 
   function bindForm() {
